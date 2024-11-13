@@ -5,6 +5,8 @@ namespace ProductApi.EFCoreWithCosmos.Services
 {
     public class ProductService : IProductService
     {
+        private readonly IProductRepository _productRepository;
+
         public Task<Product> Add(Product product)
         {
             throw new NotImplementedException();
