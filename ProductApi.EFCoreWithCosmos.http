@@ -1,0 +1,6 @@
+@ProductApi.EFCoreWithCosmos_HostAddress = http://localhost:5262
+
+GET {{ProductApi.EFCoreWithCosmos_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
