@@ -7,24 +7,31 @@ namespace ProductApi.EFCoreWithCosmos.Services
     {
         private readonly IProductRepository _productRepository;
 
-        public Task<Product> Add(Product product)
+        public ProductService(IProductRepository productRepository)
         {
-            throw new NotImplementedException();
+            _productRepository = productRepository;
         }
 
-        public Task<bool> Delete(Guid productId)
+        public async Task<Product> Add(Product product)
         {
-            throw new NotImplementedException();
+            await _productRepository.Add(product);
+
+            return product;
         }
 
-        public Task<Product?> GetById(Guid productId)
+        public async Task<bool> Delete(Guid productId)
         {
-            throw new NotImplementedException();
+            return await _productRepository.Delete(productId);
         }
 
-        public Task<Product?> Update(Product product)
+        public async Task<Product?> GetById(Guid productId)
         {
-            throw new NotImplementedException();
+            return await _productRepository.GetById(productId);
+        }
+
+        public async Task<Product?> Update(Product product)
+        {
+            return await _productRepository.Update(product);
         }
     }
 }
