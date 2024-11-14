@@ -25,29 +25,6 @@ namespace ProductApi.EFCoreWithCosmos.Database
             return await LoadProductWithReferences(productId);
         }
 
-        private async Task<Product?> LoadProductWithReferences(Guid productId)
-        {
-            var product = await _dbContext
-                .Products
-                .FindAsync(productId);
-
-            if (product == null) return null;
-
-            var productEntry = _dbContext.Products.Entry(product);
-
-            //Include Inventory from Inventory container
-            await productEntry
-                .Reference(p => p.Inventory)
-                .LoadAsync();
-
-            //Include Supplier from Suppliers container
-            await productEntry
-                .Reference(p => p.Suppliers)
-                .LoadAsync();
-
-            return product;
-        }
-
         //This will update the Product along with related data in other containers
         //We must also load the related data from the Inventory and Suppliers containers
         public async Task<Product?> Update(Product product)
@@ -71,6 +48,29 @@ namespace ProductApi.EFCoreWithCosmos.Database
         public Task<bool> Delete(Guid productId)
         {
             throw new NotImplementedException();
+        }
+
+        private async Task<Product?> LoadProductWithReferences(Guid productId)
+        {
+            var product = await _dbContext
+                .Products
+                .FindAsync(productId);
+
+            if (product == null) return null;
+
+            var productEntry = _dbContext.Products.Entry(product);
+
+            //Include Inventory from Inventory container
+            await productEntry
+                .Reference(p => p.Inventory)
+                .LoadAsync();
+
+            //Include Supplier from Suppliers container
+            await productEntry
+                .Reference(p => p.Suppliers)
+                .LoadAsync();
+
+            return product;
         }
     }
 }
