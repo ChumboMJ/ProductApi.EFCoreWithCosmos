@@ -1,10 +1,18 @@
-﻿using ProductApi.EFCoreWithCosmos.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductApi.EFCoreWithCosmos.Interfaces;
 using ProductApi.EFCoreWithCosmos.Models;
 
 namespace ProductApi.EFCoreWithCosmos.Database
 {
     public class ProductRepository : IProductRepository
     {
+        private readonly CosmosDbContext _context;
+
+        public ProductRepository(CosmosDbContext dbContext)
+        {
+            _context = dbContext;
+        }
+
         public Task Add(Product product)
         {
             throw new NotImplementedException();
