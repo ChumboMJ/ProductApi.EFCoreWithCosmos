@@ -45,9 +45,19 @@ namespace ProductApi.EFCoreWithCosmos.Database
             return product;
         }
 
-        public Task<bool> Delete(Guid productId)
+        //Delete the product and related data from other containers
+        //In order to do this, we must load both the Inventory and Suppliers
+        public async Task<bool> Delete(Guid productId)
         {
-            throw new NotImplementedException();
+            var product = await LoadProductWithReferences(productId);
+
+            if (product == null) return false;
+
+            _dbContext.Products.Remove(product);
+
+            await _dbContext.SaveChangesAsync();
+
+            return true;
         }
 
         private async Task<Product?> LoadProductWithReferences(Guid productId)
