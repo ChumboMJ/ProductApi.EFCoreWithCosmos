@@ -20,11 +20,6 @@ namespace ProductApi.EFCoreWithCosmos.Database
             await _dbContext.SaveChangesAsync();
         }
 
-        public Task<bool> Delete(Guid productId)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Product?> GetById(Guid productId)
         {
             return await LoadProductWithReferences(productId);
@@ -53,7 +48,27 @@ namespace ProductApi.EFCoreWithCosmos.Database
             return product;
         }
 
-        public Task<Product?> Update(Product product)
+        //This will update the Product along with related data in other containers
+        //We must also load the related data from the Inventory and Suppliers containers
+        public async Task<Product?> Update(Product product)
+        {
+            var existingProduct = await LoadProductWithReferences(product.ProductId);
+
+            if (existingProduct == null) return null;
+
+            existingProduct.Name = product.Name;
+            existingProduct.Category = product.Category;
+            existingProduct.Dimensions = product.Dimensions;
+            existingProduct.ShippingOptions = product.ShippingOptions;
+            existingProduct.Suppliers = product.Suppliers;
+            existingProduct.Inventory = product.Inventory;
+
+            await _dbContext.SaveChangesAsync();
+
+            return product;
+        }
+
+        public Task<bool> Delete(Guid productId)
         {
             throw new NotImplementedException();
         }
