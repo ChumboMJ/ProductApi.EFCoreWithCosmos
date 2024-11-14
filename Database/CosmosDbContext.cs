@@ -15,6 +15,23 @@ namespace ProductApi.EFCoreWithCosmos.Database
         {
             modelBuilder.HasAutoscaleThroughput(1000);
             modelBuilder.HasDefaultContainer("Products");
+
+            modelBuilder.Entity<Product>()
+                .HasNoDiscriminator()
+                .HasPartitionKey(x => x.Category)
+                .HasKey(x => x.ProductId);
+
+            modelBuilder.Entity<Supplier>()
+                .HasNoDiscriminator()
+                .ToContainer("Suppliers") //If this is not set, will use the default container
+                .HasPartitionKey(x => x.ProductId)
+                .HasKey(x => x.SupplierId);
+
+            modelBuilder.Entity<Inventory>()
+                .HasNoDiscriminator()
+                .ToContainer("Inventory")
+                .HasPartitionKey(x => x.ProductId)
+                .HasKey(x => x.InventoryId);
         }
     }
 }
