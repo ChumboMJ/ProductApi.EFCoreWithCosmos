@@ -2,7 +2,7 @@
 using CosmosDbEfCoreDemo.API.Configuration;
 using Microsoft.EntityFrameworkCore;
 using ProductApi.EFCoreWithCosmos.Database;
-using System.Configuration;
+using ProductApi.EFCoreWithCosmos.GraphQL;
 
 namespace ProductApi.EFCoreWithCosmos
 {
@@ -30,6 +30,10 @@ namespace ProductApi.EFCoreWithCosmos
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            //Configure GraphQL
+            builder.Services.AddGraphQLServer()
+                .AddQueryType<ProductQuery>();
+
             builder.Services.ResolveDependencies();
 
             var app = builder.Build();
@@ -43,9 +47,10 @@ namespace ProductApi.EFCoreWithCosmos
 
             app.UseHttpsRedirection();
 
+            app.UseCors();
             app.UseAuthorization();
 
-
+            app.MapGraphQL();
             app.MapControllers();
 
             app.Run();
