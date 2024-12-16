@@ -32,7 +32,8 @@ namespace ProductApi.EFCoreWithCosmos
 
             //Configure GraphQL
             builder.Services.AddGraphQLServer()
-                .AddQueryType<ProductQuery>();
+                .AddQueryType<ProductQuery>()
+                .AddMutationType<ProductMutation>();
 
             builder.Services.ResolveDependencies();
 
