@@ -2,15 +2,15 @@
 
 namespace ProductApi.EFCoreWithCosmos.Models
 {
-    public class Product(Guid productId, string name, string category)
+    public class Product(Guid productId)
     {
         [GraphQLDescription("Product Id")]
         [ID]
         public Guid ProductId { get; set; } = productId;
         [GraphQLDescription("Product Name")]
-        public required string Name { get; set; } = name;
+        public required string Name { get; set; }
         [GraphQLDescription("Product Category")]
-        public required string Category { get; set; } = category;
+        public required string Category { get; set; }
         public required Dimensions Dimensions { get; set; }
         public List<ShippingOption> ShippingOptions { get; set; } = [];
         public List<Supplier> Suppliers { get; set; } = [];
