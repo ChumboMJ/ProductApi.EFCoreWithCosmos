@@ -20,7 +20,7 @@ namespace CosmosDbEfCoreDemo.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Add(Product product)
         {
-            var result = await _productService.Add(product);
+            var result = await _productService.AddProductAsync(product);
 
             return Ok(result);
         }
@@ -33,7 +33,7 @@ namespace CosmosDbEfCoreDemo.API.Controllers
         {
             if (productId == Guid.Empty) return BadRequest($"{nameof(productId)} is required.");
 
-            var product = await _productService.GetById(productId);
+            var product = await _productService.GetProductByIdAsync(productId);
 
             if (product == null) return NotFound();
 
@@ -45,7 +45,7 @@ namespace CosmosDbEfCoreDemo.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(Product product)
         {
-            var result = await _productService.Update(product);
+            var result = await _productService.UpdateProductAsync(product);
 
             if (result == null) return BadRequest();
 
@@ -59,7 +59,7 @@ namespace CosmosDbEfCoreDemo.API.Controllers
         {
             if (productId == Guid.Empty) return BadRequest($"{nameof(productId)} is required.");
 
-            var result = await _productService.Delete(productId);
+            var result = await _productService.DeleteProductAsync(productId);
 
             if (!result) return BadRequest();
 
