@@ -12,16 +12,16 @@ ConfigureKeyVault(builder);
 
 // Add services to the container.
 builder.Services.AddDbContextFactory<CosmosDbContext>(optionsBuilder =>
-              optionsBuilder
-                .UseCosmos(
-                  connectionString: builder.Configuration.GetConnectionString("DefaultConnection"),
-                  databaseName: "SampleInventory",
-                  cosmosOptionsAction: options =>
-                  {
-                      options.ConnectionMode(Microsoft.Azure.Cosmos.ConnectionMode.Direct);
-                      options.MaxRequestsPerTcpConnection(16);
-                      options.MaxTcpConnectionsPerEndpoint(32);
-                  }));
+    optionsBuilder
+        .UseCosmos(
+            connectionString: builder.Configuration.GetConnectionString("DefaultConnection"),
+            databaseName: "SampleInventory",
+            cosmosOptionsAction: options =>
+            {
+                options.ConnectionMode(Microsoft.Azure.Cosmos.ConnectionMode.Direct);
+                options.MaxRequestsPerTcpConnection(16);
+                options.MaxTcpConnectionsPerEndpoint(32);
+            }));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
