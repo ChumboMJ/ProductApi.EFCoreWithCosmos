@@ -10,7 +10,9 @@ This is an Example Project to demonstrate the usage of the following technologie
 
 Configuration
 1. Pull down the latest version of main
-2. If you are NOT using KeyVault, edit your appsettings.json with the following entries:
+2. You'll need to have a Cosmos DB instance running. You can use the Azure Cosmos Emulator for local development. In addition,
+   The Cosmos DB will need to have a container named "Products", another named "Inventory", and a third named "Suppliers"
+3. If you are NOT using KeyVault, edit your appsettings.json with the following entries:
       - Make sure that you have a ProductApi section within your appsettings.json
       - You will need to add an "AllowedHosts" value, this is for CORS<br>
       ```json
@@ -38,7 +40,7 @@ Configuration
 		  }
 		}
 	  ```              
-3. If you are connecting to Azure KeyVault, you will need the following entries in your appsettings.json:
+4. If you are connecting to Azure KeyVault, you will need the following entries in your appsettings.json:
     ```json
 	{
 	  "KeyVault": {
