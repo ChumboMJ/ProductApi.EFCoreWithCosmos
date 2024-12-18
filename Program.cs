@@ -2,6 +2,7 @@
 using Azure.Identity;
 using CosmosDbEfCoreDemo.API.Configuration;
 using Microsoft.EntityFrameworkCore;
+using ProductApi.EFCoreWithCosmos;
 using ProductApi.EFCoreWithCosmos.Database;
 using ProductApi.EFCoreWithCosmos.GraphQL;
 using System.Security.Cryptography.X509Certificates;
@@ -9,6 +10,11 @@ using System.Security.Cryptography.X509Certificates;
 var builder = WebApplication.CreateBuilder(args);
 
 ConfigureKeyVault(builder);
+
+// Configure the ProductApiOptions object.
+builder.Services.Configure<ProductApiOptions>(builder.Configuration.GetSection(ProductApiOptions.ProductApi));
+
+var options = builder.Configuration.GetSection(ProductApiOptions.ProductApi).Get<ProductApiOptions>();
 
 // Add services to the container.
 builder.Services.AddDbContextFactory<CosmosDbContext>(optionsBuilder =>
