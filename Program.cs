@@ -14,14 +14,15 @@ ConfigureKeyVault(builder);
 // Configure the ProductApiOptions object.
 builder.Services.Configure<ProductApiOptions>(builder.Configuration.GetSection(ProductApiOptions.ProductApi));
 
-var options = builder.Configuration.GetSection(ProductApiOptions.ProductApi).Get<ProductApiOptions>();
+var productApiOptions = builder.Configuration.GetSection(ProductApiOptions.ProductApi).Get<ProductApiOptions>() 
+                            ?? throw new Exception("ProductApiOptions is not configured correctly.");
 
 // Add services to the container.
 builder.Services.AddDbContextFactory<CosmosDbContext>(optionsBuilder =>
     optionsBuilder
         .UseCosmos(
-            connectionString: builder.Configuration.GetConnectionString("DefaultConnection"),
-            databaseName: "SampleInventory",
+            connectionString: productApiOptions.CosmosDb.ConnectionString,
+            databaseName: productApiOptions.CosmosDb.DatabaseName,
             cosmosOptionsAction: options =>
             {
                 options.ConnectionMode(Microsoft.Azure.Cosmos.ConnectionMode.Direct);
