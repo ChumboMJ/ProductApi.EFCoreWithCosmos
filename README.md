@@ -2,7 +2,11 @@ This is an Example Project to demonstrate the usage of the following technologie
   - Entity Framework Core
   - Cosmos DB
   - Graph QL (via HotChocolate)
+    - Queries
+    - Mutations
   - RESTful Api
+  - Azure KeyVault
+  - Options Pattern
 
 Configuration
 1. Pull down the latest version of main
