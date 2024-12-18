@@ -52,5 +52,5 @@ Configuration
    NOTE: KeyValut is not required for this project, but it is a good practice to use it for storing sensitive information.
    TIP: "KeyVault" should be at the same level with "ProductApi" in your appsettings.json, not within it  
    TIP #2: Make sure your KeyVault settings reflect the proper pattern. For example, ConnectionsString should be stored under
-           "ProductApi:CosmosDb:ConnectionString" in KeyVault
+           "ProductApi--CosmosDb--ConnectionString" in KeyVault
 
